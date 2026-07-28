@@ -1,22 +1,27 @@
 // ===============================
 // Side Menu
 // ===============================
+const menuBtn = 
+    document.querySelector(".menu-btn");
+const sideMenu = 
+    document.getElementById("sideMenu");
+const closeBtn = 
+    document.querySelector(".close-btn");
 
-const menuBtn = document.querySelector(".menu-btn");
-const sideMenu = document.getElementById("sideMenu");
-const closeBtn = document.querySelector(".close-btn");
-
-if (menuBtn && sideMenu && closeBtn) {
-
-    menuBtn.addEventListener("click", function () {
-        sideMenu.classList.add("active");
-    });
-
-    closeBtn.addEventListener("click", function () {
-        sideMenu.classList.remove("active");
-    });
-
+menuBtn.onclick = function () {
+    sideMenu.classList.add("active");
 }
+
+closeBtn.onclick = function () {
+    sideMenu.classList.remove("active");
+}
+
+window.onclick = function(e){
+    if(e.target === sideMenu){
+        sideMenu.classList.remove("active");
+    }
+}
+
 
 // ===============================
 // Loader

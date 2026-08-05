@@ -42,7 +42,7 @@
 
 <div class="social-login">
 
-<button class="google-btn">
+<button id="googleLoginBtn" class="google-btn">
 <img src="google.png" alt="Google">
 <span>Log in with Google</span>
 </button>
@@ -85,5 +85,49 @@ Log in
 </div>
 
 <script src="script.js"></script>
+<script type="module">
+  // 1. Firebase इम्पोर्ट करें
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+  // 2. आपका Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyA_xzJyzKI-rQFfCopu-GRQaIITU8rGvxM",
+    authDomain: "ash-harry-5c77f.firebaseapp.com",
+    projectId: "ash-harry-5c77f",
+    storageBucket: "ash-harry-5c77f.firebasestorage.app",
+    messagingSenderId: "465749262084",
+    appId: "1:465749262084:web:5b7703f832162dec4e1a51",
+    measurementId: "G-XGC2YSEVMN"
+  };
+
+  // 3. Firebase चालू करें
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  // 4. लॉगिन बटन पर क्लिक का कोड
+  const googleBtn = document.getElementById("googleLoginBtn");
+
+  if(googleBtn) {
+    googleBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          alert("लॉगिन सफल हुआ! आपका स्वागत है, " + user.displayName);
+          
+          // लॉगिन होने के बाद वापस होम पेज पर भेजने के लिए:
+          window.location.href = "index.html"; 
+        })
+        .catch((error) => {
+          console.error("लॉगिन एरर:", error);
+          alert("लॉगिन फेल हो गया: " + error.message);
+        });
+    });
+  }
+</script>
+    
 </body>
 </html>
